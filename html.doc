@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.7.1/brython.min.js"></script>
+    <style>
+        .calculator {
+            width: 180px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .display {
+            width: 84%;
+            height: 20px;
+            text-align: right;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            border-radius: 50px;
+        }
+        .buttons {
+            width: 100%;
+            s
+        }
+        .buttons button {
+            width: 20%;
+            height: 40px;
+            font-size: 16px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body onload="brython()">
+    <h1 align="Left">My Calculator</h1>
+    <div class="calculator">
+        <div id="display" class="display"></div>
+        <div class="buttons">
+            <button onclick="append_display('1')">1</button>
+            <button onclick="append_display('2')">2</button>
+            <button onclick="append_display('3')">3</button>
+            <button onclick="append_display('+')">+</button>
+            <button onclick="append_display('4')">4</button>
+            <button onclick="append_display('5')">5</button>
+            <button onclick="append_display('6')">6</button>
+            <button onclick="append_display('-')">-</button>
+            <button onclick="append_display('7')">7</button>
+            <button onclick="append_display('8')">8</button>
+            <button onclick="append_display('9')">9</button>
+            <button onclick="append_display('*')">*</button>
+            <button onclick="clear_display()">C</button>
+            <button onclick="append_display('0')">0</button>
+            <button onclick="append_display('/')">/</button>
+            <button onclick="calculate_result()">=</button>
+            <button onclick="append_display('%')">%</button>
+            <button onclick="append_display('.')">.</button>
+        </div>
+    </div>
+    <script type="text/python">
+from browser import document, window
+
+def append_display(value):
+    display = document["display"]
+    display.innerHTML += value
+
+def clear_display():
+    document["display"].innerHTML = ""
+
+def calculate_result():
+    display = document["display"]
+    expression = display.innerHTML
+    try:
+        result = eval(expression)
+        display.innerHTML = str(result)
+    except:
+        display.innerHTML = "Error"
+
+# Expose the functions to the JavaScript context
+window.append_display = append_display
+window.clear_display = clear_display
+window.calculate_result = calculate_result
+</script>
+<h1 align="right">@simple</h1>
+</body>
+</html>
